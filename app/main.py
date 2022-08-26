@@ -11,11 +11,11 @@ def main():
     # Uncomment this block to pass the first stage
     #
     command = sys.argv[1]
-    argument_list = sys.argv[1:]
-    print('argument_list = ', argument_list)
+    option_list = sys.argv[2:]
+    print('option_list = ', option_list)
     short_options = "p:"
     try:
-        options, arguments = getopt.getopt(argument_list, short_options)
+        options, _ = getopt.getopt(option_list, short_options)
     except getopt.error as err:
         # Output error, and return with an error code
         print(str(err))
@@ -29,6 +29,7 @@ def main():
         print("Initialized git directory")
     elif command == "cat-file":
         print('options = ', options)
+        print()
         for option, argument in options:
             if option == '-p':
                 sha1_hex = argument
