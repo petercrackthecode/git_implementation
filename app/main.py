@@ -39,7 +39,7 @@ def main():
                 byte_array = bytearray()
                 while (byte := file.read(1)):
                     byte_array += byte
-                return byte_array.decode('utf-8')
+                return byte_array.decode('ascii')
 
         except IOError:
             raise ValueError(f"Invalid blob {folder}{filename}")
