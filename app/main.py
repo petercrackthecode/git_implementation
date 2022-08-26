@@ -34,12 +34,12 @@ def main():
             if option == '-p':
                 sha1_hex = argument
         folder, filename = sha1_hex[:2], sha1_hex[2:]
-        print(f'folder = {folder}, filename = {filename}')
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
                 byte_array = bytearray()
                 while (byte := file.read(1)):
-                    byte_array += byte
+                    byte_array.append(byte)
+                print("byte_array = ", byte_array)
                 return byte_array.decode('ascii')
 
         except IOError:
