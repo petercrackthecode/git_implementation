@@ -6,7 +6,7 @@ import zlib
 
 def main():
     # You can use print statements as follows for debugging, they'll be visible when running tests.
-    print("Logs from your program will appear here!")
+    # print("Logs from your program will appear here!")
 
     # Uncomment this block to pass the first stage
     #
@@ -42,8 +42,7 @@ def main():
                         break
                     byte_array.extend(chunk)
                 decompressed_data = zlib.decompress(byte_array)
-                print("decompressed_data.decode('utf-8') = ",
-                      decompressed_data.decode('utf-8'))
+                print(decompressed_data.decode('utf-8'), end="")
                 return decompressed_data.decode('utf-8')
 
         except IOError:
