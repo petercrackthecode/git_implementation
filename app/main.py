@@ -14,7 +14,7 @@ def main():
     argument_list = sys.argv[1:]
     short_options = "p:"
     try:
-        arguments_options = getopt.getopt(argument_list, short_options)
+        arguments_options = getopt.getopt(argument_list, short_options)[1]
     except getopt.error as err:
         # Output error, and return with an error code
         print(str(err))
