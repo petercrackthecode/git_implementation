@@ -12,7 +12,6 @@ def main():
     #
     command = sys.argv[1]
     option_list = sys.argv[2:]
-    print('option_list = ', option_list)
     short_options = "p:"
     try:
         options, _ = getopt.getopt(option_list, short_options)
@@ -28,8 +27,6 @@ def main():
             f.write("ref: refs/heads/master\n")
         print("Initialized git directory")
     elif command == "cat-file":
-        print('options = ', options)
-        print()
         for option, argument in options:
             if option == '-p':
                 sha1_hex = argument
@@ -44,8 +41,9 @@ def main():
                         # end of file
                         break
                     byte_array.extend(chunk)
-                print("byte_array = ", byte_array)
                 decompressed_data = zlib.decompress(byte_array)
+                print("decompressed_data.decode('utf-8') = ",
+                      decompressed_data.decode('utf-8'))
                 return decompressed_data.decode('utf-8')
 
         except IOError:
