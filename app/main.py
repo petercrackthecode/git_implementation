@@ -15,7 +15,7 @@ def main():
     print('argument_list = ', argument_list)
     short_options = "p:"
     try:
-        arguments_options = getopt.getopt(argument_list, short_options)[1]
+        options, arguments = getopt.getopt(argument_list, short_options)
     except getopt.error as err:
         # Output error, and return with an error code
         print(str(err))
@@ -28,10 +28,10 @@ def main():
             f.write("ref: refs/heads/master\n")
         print("Initialized git directory")
     elif command == "cat-file":
-        print('arguments_options = ', arguments_options)
-        for argument, value in arguments_options:
-            if argument == '-p':
-                sha1_hex = value
+        print('options = ', options)
+        for option, argument in options:
+            if option == '-p':
+                sha1_hex = argument
         folder, filename = sha1_hex[:2], sha1_hex[2:]
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
