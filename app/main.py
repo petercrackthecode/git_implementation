@@ -12,6 +12,7 @@ def main():
     #
     command = sys.argv[1]
     argument_list = sys.argv[1:]
+    print('argument_list = ', argument_list)
     short_options = "p:"
     try:
         arguments_options = getopt.getopt(argument_list, short_options)[1]
