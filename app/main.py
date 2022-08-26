@@ -37,8 +37,13 @@ def main():
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
                 byte_array = bytearray()
-                while (byte := file.read(1)):
-                    byte_array.append(byte)
+                chunk_size = 4096  # 4 Kb
+                while True:
+                    chunk = file.read(chunk_size)
+                    if chunk == b"":
+                        # end of file
+                        break
+                    byte_array.extend(chunk)
                 print("byte_array = ", byte_array)
                 return byte_array.decode('ascii')
 
