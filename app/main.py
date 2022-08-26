@@ -45,7 +45,8 @@ def main():
                         break
                     byte_array.extend(chunk)
                 print("byte_array = ", byte_array)
-                return byte_array.decode('ascii')
+                decompressed_data = zlib.decompress(byte_array)
+                return decompressed_data.decode('utf-8')
 
         except IOError:
             raise ValueError(f"Invalid blob {folder}{filename}")
