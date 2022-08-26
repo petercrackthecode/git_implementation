@@ -34,6 +34,7 @@ def main():
             if option == '-p':
                 sha1_hex = argument
         folder, filename = sha1_hex[:2], sha1_hex[2:]
+        print(f'folder = {folder}, filename = {filename}')
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
                 byte_array = bytearray()
