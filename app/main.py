@@ -27,6 +27,7 @@ def main():
             f.write("ref: refs/heads/master\n")
         print("Initialized git directory")
     elif command == "cat-file":
+        print('arguments_options = ', arguments_options)
         for argument, value in arguments_options:
             if argument == '-p':
                 sha1_hex = value
