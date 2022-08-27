@@ -28,7 +28,7 @@ def hash_object(file_name):
             compressed_data = zlib.compress(file_content_bytes)
             # Create a file (in case it doesn't exist) and write the blob to it
             with open(os.path.join(folder_path, compressed_file_name), 'ab') as compressed_file:
-                compressed_file.write(header)
+                compressed_file.write(header.encode(encoding='utf-8'))
                 compressed_file.write(compressed_data)
             # print the data_sha1 as the desired stdout of the function
             print(data_sha1, end="")
