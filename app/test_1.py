@@ -23,11 +23,10 @@ def hash_object(file_name):
             file_content_string = bytes.decode(encoding='utf-8')
             header = bytearray(
                 f'blob #{len(file_content_string)}\0', encoding='utf-8')
-            print('header = ', header)
-            compressed_data = zlib.compress(header + bytes)
             sha1 = hashlib.sha1()
-            sha1.update(compressed_data)
+            sha1.update(bytes)
             compressed_data_sha1 = sha1.hexdigest()
+            compressed_data = zlib.compress(header + bytes)
             subfolder, compressed_file_name = compressed_data_sha1[:2], compressed_data_sha1[2:]
             folder_path = os.path.join(".peter_git", "objects", subfolder)
             # Create folder

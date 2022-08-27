@@ -17,21 +17,22 @@ def hash_object(file_name):
             # This header is required by the blob object format: https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
             header = bytearray(
                 f'blob #{len(file_content_string)}\x00', encoding='utf-8')
-            compressed_data = zlib.compress(bytes)
+            # Files data are converted to sha1 first before being compressed.
             sha1 = hashlib.sha1()
             sha1.update(bytes)
-            compressed_data_sha1 = sha1.hexdigest()
-            subfolder, compressed_file_name = compressed_data_sha1[:2], compressed_data_sha1[2:]
+            data_sha1 = sha1.hexdigest()
+            subfolder, compressed_file_name = data_sha1[:2], data_sha1[2:]
             folder_path = os.path.join(".git", "objects", subfolder)
             # Create folder
             os.mkdir(folder_path)
+            compressed_data = zlib.compress(bytes)
             # Create a file (in case it doesn't exist) and write the blob to it
             with open(os.path.join(folder_path, compressed_file_name), 'ab') as compressed_file:
                 compressed_file.write(header)
                 compressed_file.write(compressed_data)
-            # print the compressed_data_sha1 as the desired stdout of the function
-            print(compressed_data_sha1, end="")
-            print('\nfile_content_string = ', file_content_string)
+            # print the data_sha1 as the desired stdout of the function
+            print(data_sha1, end="")
+            print('\nfile_content_string = ', file_content_string, end="")
     except IOError:
         raise ValueError(f"Unable to open file {file_name}: File not found")
 
