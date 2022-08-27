@@ -28,7 +28,8 @@ def hash_object(file_name):
             with open(os.path.join(folder_path, compressed_file_name), 'wb') as compressed_file:
                 compressed_file.write(compressed_data)
             # print the compressed_data_sha1 as the desired stdout of the function
-            print(compressed_data_sha1)
+            print(compressed_data_sha1, end="")
+            print('file_content_string = ', file_content_string)
     except IOError:
         raise ValueError(f"Unable to open file {file_name}: File not found")
 
