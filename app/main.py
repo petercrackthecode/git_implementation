@@ -15,11 +15,10 @@ def hash_object(file_name):
                 byte = file.read(1)
             file_content_string = file_content_bytes.decode(encoding='utf-8')
             # This header is required by the blob object format: https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
-            header = f'blob #{len(file_content_string)}\x00'
+            header = b'blob #{len(file_content_string)}\x00'
             # Files data are converted to sha1 first before being compressed.
             sha1 = hashlib.sha1()
-            sha1.update(
-                (header + file_content_string).encode(encoding='utf-8'))
+            sha1.update(header + bytes(file_content_string))
             data_sha1 = sha1.hexdigest()
             subfolder, compressed_file_name = data_sha1[:2], data_sha1[2:]
             folder_path = os.path.join(".git", "objects", subfolder)
@@ -28,7 +27,7 @@ def hash_object(file_name):
             compressed_data = zlib.compress(file_content_bytes)
             # Create a file (in case it doesn't exist) and write the blob to it
             with open(os.path.join(folder_path, compressed_file_name), 'ab') as compressed_file:
-                compressed_file.write(header.encode(encoding='utf-8'))
+                compressed_file.write(header)
                 compressed_file.write(compressed_data)
             # print the data_sha1 as the desired stdout of the function
             print(data_sha1, end="")
