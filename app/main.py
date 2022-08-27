@@ -35,11 +35,11 @@ def main():
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
                 byte_array = bytearray()
-                chunk_size = 4096  # 4 Kb
                 byte = file.read(1)
                 while byte:
                     byte_array += byte
                     byte = file.read(1)
+                print('byte_array = ', byte_array)
                 decompressed_data = zlib.decompress(byte_array)
                 print(decompressed_data.decode(DECODE_TYPE), end="")
                 return decompressed_data.decode(DECODE_TYPE)
