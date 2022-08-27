@@ -31,7 +31,7 @@ def main():
             if option == '-p':
                 sha1_hex = argument
         folder, filename = sha1_hex[:2], sha1_hex[2:]
-        ENCODE_TYPE = DECODE_TYPE = 'utf-8'
+        DECODE_TYPE = 'utf-8'
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
                 byte_array = bytearray()
