@@ -33,7 +33,7 @@ def main():
         folder, filename = sha1_hex[:2], sha1_hex[2:]
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
-                byte_array = bytearray()
+                byte_array = bytearray(b"")
                 chunk_size = 4096  # 4 Kb
                 while True:
                     chunk = file.read(chunk_size)
@@ -42,8 +42,9 @@ def main():
                         break
                     byte_array.extend(chunk)
                 decompressed_data = zlib.decompress(byte_array)
-                print(decompressed_data.decode('ascii'), end="")
-                return decompressed_data.decode('ascii')
+                DECODE_TYPE = 'utf-8'
+                print(decompressed_data.decode(DECODE_TYPE), end="")
+                return decompressed_data.decode(DECODE_TYPE)
 
         except IOError:
             raise ValueError(f"Invalid blob {folder}{filename}")
