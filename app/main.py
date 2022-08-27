@@ -15,10 +15,10 @@ def hash_object(file_name):
                 byte = file.read(1)
             file_content_string = file_content_bytes.decode(encoding='utf-8')
             # This header is required by the blob object format: https://git-scm.com/book/en/v2/Git-Internals-Git-Objects
-            header = b'blob #{len(file_content_string)}\x00'
+            header = f'blob #{len(file_content_string)}\x00'
             # Files data are converted to sha1 first before being compressed.
             sha1 = hashlib.sha1()
-            sha1.update(header + bytes(file_content_string))
+            sha1.update(header + file_content_bytes)
             data_sha1 = sha1.hexdigest()
             subfolder, compressed_file_name = data_sha1[:2], data_sha1[2:]
             folder_path = os.path.join(".git", "objects", subfolder)
