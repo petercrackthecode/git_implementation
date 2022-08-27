@@ -31,18 +31,16 @@ def main():
             if option == '-p':
                 sha1_hex = argument
         folder, filename = sha1_hex[:2], sha1_hex[2:]
+        ENCODE_TYPE = DECODE_TYPE = 'utf-8'
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
-                byte_array = bytearray(b"")
+                byte_array = bytearray(b'', ENCODE_TYPE)
                 chunk_size = 4096  # 4 Kb
-                while True:
-                    chunk = file.read(chunk_size)
-                    if chunk == b"":
-                        # end of file
-                        break
-                    byte_array.extend(chunk)
+                byte = file.read(1)
+                while byte:
+                    byte_array.append(byte)
+                    byte = f.read(1)
                 decompressed_data = zlib.decompress(byte_array)
-                DECODE_TYPE = 'utf-8'
                 print(decompressed_data.decode(DECODE_TYPE), end="")
                 return decompressed_data.decode(DECODE_TYPE)
 
