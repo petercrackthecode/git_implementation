@@ -39,7 +39,7 @@ def main():
                 byte = file.read(1)
                 while byte:
                     byte_array += byte
-                    byte = f.read(1)
+                    byte = file.read(1)
                 decompressed_data = zlib.decompress(byte_array)
                 print(decompressed_data.decode(DECODE_TYPE), end="")
                 return decompressed_data.decode(DECODE_TYPE)
