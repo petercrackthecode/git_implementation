@@ -40,7 +40,7 @@ def main():
     #
     command = sys.argv[1]
     option_list = sys.argv[2:]
-    short_options = "p:"
+    short_options = "p:w:"
     try:
         options, _ = getopt.getopt(option_list, short_options)
     except getopt.error as err:
