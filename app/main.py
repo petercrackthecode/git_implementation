@@ -34,7 +34,7 @@ def main():
         ENCODE_TYPE = DECODE_TYPE = 'utf-8'
         try:
             with open(f".git/objects/{folder}/{filename}", "rb") as file:
-                byte_array = bytearray(b'', ENCODE_TYPE)
+                byte_array = bytearray()
                 chunk_size = 4096  # 4 Kb
                 byte = file.read(1)
                 while byte:
