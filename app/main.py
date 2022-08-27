@@ -22,7 +22,7 @@ def hash_object(file_name):
             sha1.update(compressed_data)
             compressed_data_sha1 = sha1.hexdigest()
             subfolder, compressed_file_name = compressed_data_sha1[:2], compressed_data_sha1[2:]
-            folder_path = os.path.join(".peter_git", "objects", subfolder)
+            folder_path = os.path.join(".git", "objects", subfolder)
             # Create folder
             os.mkdir(folder_path)
             # Create a file (in case it doesn't exist) and write the blob to it
