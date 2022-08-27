@@ -26,7 +26,7 @@ def hash_object(file_name):
             # Create folder
             os.mkdir(folder_path)
             # Create a file (in case it doesn't exist) and write the blob to it
-            with open(os.path.join(folder_path, compressed_file_name), 'wb') as compressed_file:
+            with open(os.path.join(folder_path, compressed_file_name), 'ab') as compressed_file:
                 compressed_file.write(header)
                 compressed_file.write(compressed_data)
             # print the compressed_data_sha1 as the desired stdout of the function
