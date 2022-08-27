@@ -40,6 +40,9 @@ def main():
                     byte_array += byte
                     byte = file.read(1)
                 decompressed_data = zlib.decompress(byte_array)
+                # filter out the "blob" and file length strings
+                decompressed_data = decompressed_data[(
+                    decompressed_data.find(b'\x00') + 1):]
                 print(decompressed_data.decode(DECODE_TYPE), end="")
 
         except IOError:
