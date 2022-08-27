@@ -1,5 +1,4 @@
 import zlib
-import binascii
 import hashlib
 
 data = 'Hello world'

@@ -2,6 +2,34 @@ import sys
 import os
 import getopt
 import zlib
+import hashlib
+
+
+def hash_object(file_name):
+    try:
+        bytes = bytearray()
+        with open(file_name, "rb") as file:
+            byte = file.read(1)
+            while byte:
+                bytes += byte
+                byte = file.read(1)
+            file_content_string = bytes.decode(encoding='utf-8')
+            header = bytearray(
+                f'blob #{len(file_content_string)}\0', encoding='utf-8')
+            print('header = ', header)
+            compressed_data = zlib.compress(header + bytes)
+            sha1 = hashlib.sha1()
+            sha1.update(compressed_data)
+            compressed_data_sha1 = sha1.hexdigest()
+            subfolder, compressed_file_name = compressed_data_sha1[:2], compressed_data_sha1[2:]
+            folder_path = os.path.join(".peter_git", "objects", subfolder)
+            # Create folder
+            os.mkdir(folder_path)
+            # Create a file (in case it doesn't exist) and write the blob to it
+            with open(os.path.join(folder_path, compressed_file_name), 'wb') as compressed_file:
+                compressed_file.write(compressed_data)
+    except IOError:
+        raise ValueError(f"Unable to open file {file_name}: File not found")
 
 
 def main():
@@ -47,6 +75,14 @@ def main():
 
         except IOError:
             raise ValueError(f"Invalid blob {folder}{filename}")
+    elif command == 'hash-object':
+        for option, argument in options:
+            if option == '-w':
+                input_file_name = argument
+        try:
+            hash_object(input_file_name)
+        except Exception as exc:
+            raise RuntimeError(exc)
     else:
         raise RuntimeError(f"Unknown command #{command}")
 
