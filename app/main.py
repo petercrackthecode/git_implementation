@@ -38,7 +38,7 @@ def main():
                 chunk_size = 4096  # 4 Kb
                 byte = file.read(1)
                 while byte:
-                    byte_array.append(byte)
+                    byte_array += byte
                     byte = f.read(1)
                 decompressed_data = zlib.decompress(byte_array)
                 print(decompressed_data.decode(DECODE_TYPE), end="")
