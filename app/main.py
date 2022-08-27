@@ -18,7 +18,7 @@ def hash_object(file_name):
                 f'blob #{len(file_content_string)}\0', encoding='utf-8')
             compressed_data = zlib.compress(header + bytes)
             sha1 = hashlib.sha1()
-            sha1.update(compressed_data)
+            sha1.update(bytes)
             compressed_data_sha1 = sha1.hexdigest()
             subfolder, compressed_file_name = compressed_data_sha1[:2], compressed_data_sha1[2:]
             folder_path = os.path.join(".git", "objects", subfolder)
@@ -29,7 +29,7 @@ def hash_object(file_name):
                 compressed_file.write(compressed_data)
             # print the compressed_data_sha1 as the desired stdout of the function
             print(compressed_data_sha1, end="")
-            print('file_content_string = ', file_content_string)
+            print('\nfile_content_string = ', file_content_string)
     except IOError:
         raise ValueError(f"Unable to open file {file_name}: File not found")
 
