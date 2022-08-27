@@ -41,7 +41,6 @@ def main():
                     byte = file.read(1)
                 decompressed_data = zlib.decompress(byte_array)
                 print(decompressed_data.decode(DECODE_TYPE), end="")
-                return decompressed_data.decode(DECODE_TYPE)
 
         except IOError:
             raise ValueError(f"Invalid blob {folder}{filename}")
